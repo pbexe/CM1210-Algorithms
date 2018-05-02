@@ -43,7 +43,21 @@ public class MyLinkedList
     // addAtPosition: adds new item into the list at specific position
     public void addAtPosition(int position, String item)
     {
-        // Add your code here
+        calculateSize();
+        if (position > getSize() || position < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node newest = new Node(item);
+        if (position == 0) {
+            Node tmp = getHead();
+            setHead(newest);
+            getHead().next = tmp;
+        } else {
+            Node found = findByPosition(position - 1);
+            newest.next = found.next;
+            found.next = newest;
+        }
+        calculateSize();
     }
 
     // deleteAtPosition: deletes item from the list at specific position
