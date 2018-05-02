@@ -41,7 +41,7 @@ public class MyLinkedList
     }
 
     // addAtPosition: adds new item into the list at specific position
-    public void addAtPosition(int position, String item)
+    public void addAtPosition(int position, String item) throws IndexOutOfBoundsException
     {
         calculateSize();
         if (position > getSize() || position < 0) {
@@ -61,10 +61,23 @@ public class MyLinkedList
     }
 
     // deleteAtPosition: deletes item from the list at specific position
-    public Node deleteAtPosition(int position)
+    public Node deleteAtPosition(int position) throws IndexOutOfBoundsException
     {
-        // Add your code here (and remove null)
-        return null;
+        calculateSize();
+        Node deleted;
+        if (position >= getSize() || position < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (position == 0) {
+            deleted = this.head;
+            this.head = this.head.next;
+        } else {
+            Node found = findByPosition(position - 1);
+            deleted = found.next;
+            found.next = found.next.next;
+        }
+        calculateSize();
+        return deleted;
     }
 
     // findByPosition: finds the element at specific position in the MyLinkedList
