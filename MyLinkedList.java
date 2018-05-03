@@ -43,40 +43,53 @@ public class MyLinkedList
     // addAtPosition: adds new item into the list at specific position
     public void addAtPosition(int position, String item) throws IndexOutOfBoundsException
     {
+        // Refresh the size of the linked list
         calculateSize();
+        // Check if the position is invalid
         if (position > getSize() || position < 0) {
             throw new IndexOutOfBoundsException();
         }
+        // Create a new node to insert
         Node newest = new Node(item);
+        // If it to be inserted into the first position set the next to the original first element
         if (position == 0) {
             Node tmp = getHead();
             setHead(newest);
             getHead().next = tmp;
         } else {
+            // Otherwise insert it into the position specified
             Node found = findByPosition(position - 1);
             newest.next = found.next;
             found.next = newest;
         }
+        // Refresh the size of the linked list
         calculateSize();
     }
 
     // deleteAtPosition: deletes item from the list at specific position
     public Node deleteAtPosition(int position) throws IndexOutOfBoundsException
     {
+        // Refresh the size of the linked list
         calculateSize();
+        // New node object to store deleted node in
         Node deleted;
+        // Check if the position is invalid
         if (position >= getSize() || position < 0) {
             throw new IndexOutOfBoundsException();
         }
+        // If it is at the start of the list, change the head
         if (position == 0) {
             deleted = this.head;
             this.head = this.head.next;
         } else {
+            // Otherwise set the next of the previous element to the next element
             Node found = findByPosition(position - 1);
             deleted = found.next;
             found.next = found.next.next;
         }
+        // Refresh the size of the linked list
         calculateSize();
+        // Return the deleted node
         return deleted;
     }
 
